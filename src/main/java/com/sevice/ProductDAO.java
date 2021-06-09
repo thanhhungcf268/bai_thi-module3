@@ -91,7 +91,6 @@ public class ProductDAO {
         preparedStatement.setInt(3, product.getSoL());
         preparedStatement.setString(4, product.getColor());
         preparedStatement.setString(5, product.getMoTa());
-        String a = product.getCategory();
         preparedStatement.setInt(6, Integer.parseInt(product.getCategory()));
         rowInserted = preparedStatement.executeUpdate();
         return rowInserted != 0;
@@ -120,5 +119,22 @@ public class ProductDAO {
         preparedStatement.setInt(1,id);
         preparedStatement.executeUpdate();
     }
-
+    public List<Product> showSearch(String str) throws SQLException {
+        List<Product> productList = new ArrayList<>();
+        String showSearch ="select * from product where nameProduct like ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(showSearch);
+        preparedStatement.setString(1,"%"+str+"%");
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            String name = resultSet.getString("nameProduct");
+            double price = resultSet.getDouble("price");
+            int soL = resultSet.getInt("soL");
+            String color = resultSet.getString("color");
+            String moTa = resultSet.getString("moTa");
+            String category = resultSet.getString("id_category");
+            productList.add( new Product(id, name, price, soL, color, moTa, category));
+        }
+        return productList;
+    }
 }

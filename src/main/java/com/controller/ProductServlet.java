@@ -77,6 +77,14 @@ public class ProductServlet extends HttpServlet {
     private void createOrder(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         String name = request.getParameter("name");
         double price = Double.parseDouble(request.getParameter("price"));
+        List<Category> list = productDAO.selectALLC();
+        request.setAttribute("category", list);
+        if (name.equals("")) {
+            request.setAttribute("message", "Error!");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("product/addNew.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
         int soL = Integer.parseInt(request.getParameter("soL"));
         String color = request.getParameter("color");
         String moTa = request.getParameter("moTa");
@@ -108,15 +116,36 @@ public class ProductServlet extends HttpServlet {
                 case "edit":
                     update(request, response);
                     break;
+                default:
+                    showListSearch(request, response);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
+    private void showListSearch(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        String search = request.getParameter("search");
+        List<Product> list = productDAO.showSearch(search);
+        List<Category> listCategory = productDAO.selectALLC();
+        request.setAttribute("category", listCategory);
+        if (search.equals("")) {
+            showList(request, response);
+        } else {
+            request.setAttribute("product", list);
+        }
+        RequestDispatcher dispatcher = request.getRequestDispatcher("product/list.jsp");
+        dispatcher.forward(request, response);
+    }
+
     private void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
+        if (name.equals("")){
+            request.setAttribute("message", "Error!");
+            updateShow(request,response);
+            return;
+        }
         double price = Double.parseDouble(request.getParameter("price"));
         int soL = Integer.parseInt(request.getParameter("soL"));
         String color = request.getParameter("color");

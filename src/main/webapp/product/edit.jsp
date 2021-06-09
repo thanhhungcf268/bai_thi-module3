@@ -10,69 +10,68 @@
 <html>
 <head>
     <title>Title</title>
+    <style>
+        .form-control {
+            background-color: #fff;
+            /*display: block;*/
+            border-radius: 4px;
+            /*box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;*/
+            width: 100%;
+            text-align: center;
+            height: 30px;
+        }
+    </style>
 </head>
 <body>
 <form method="post">
     <div align="center">
-        <h1><c:if test="${message!= null}">
-            <p style="color: red"><c:out value="${message}"/></p>
-        </c:if></h1>
-        <table class="table">
-            <thead class="thead-light">
-            <tr>
-                <th style="text-align: right" scope="col">Property</th>
-                <th scope="col">Data</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr hidden>
-                <td style="text-align: right">User Id:</td>
-                <td><input type="text" name="id" value="${product.id}"></td>
-            </tr>
-            <tr>
-                <td style="text-align: right">Name:</td>
-                <td><input type="text" name="name" value="${product.name}"></td>
-            </tr>
-            <tr>
-                <td style="text-align: right">Price:</td>
-                <td>
-                    <input type="text" name="price" value="${product.price}">
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align: right">soL:</td>
-                <td>
-                    <input type="text" name="soL" value="${product.soL}">
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align: right">Color:</td>
-                <td>
-                    <input type="text" name="color" value="${product.color}">
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align: right">moTa:</td>
-                <td>
-                    <input type="text" name="moTa" value="${product.moTa}">
-                </td>
-            </tr>
-            <td>Category</td>
-            <td><select name="id_category">
+        <h1>
+            <c:if test="${message=='Success!'}">
+                <p style="color: green"><c:out value="${message}"/></p>
+            </c:if>
+            <c:if test="${message=='Error!'}">
+                <p style="color: red"><c:out value="${message}"/></p>
+            </c:if>
+        </h1>
+        <tbody>
+        <div hidden>
+            <input id="id" class="form-control" type="text" name="id" value="${product.id}">
+        </div>
+        <div>
+            <label>Name:</label>
+            <input id="name" class="form-control" type="text" name="name" value="${product.name}">
+        </div>
+        <div>
+            <label for="price">Price:</label>
+            <input id="price" class="form-control" type="number" name="price" value="${product.price}">
+        </div>
+        <div>
+            <label for="soL">soL:</label>
+            <input id="soL" class="form-control" type="text" name="soL" value="${product.soL}">
+        </div>
+        <div>
+            <label for="color">Color:</label>
+            <input id="color" class="form-control" type="text" name="color" value="${product.color}">
+        </div>
+        <div>
+            <label for="moTa">moTa:</label>
+            <input id="moTa" class="form-control" type="text" name="moTa" value="${product.moTa}">
+        </div>
+        <div>
+            <label for="category">Category</label>
+            <select id="category" name="id_category">
                 <c:forEach items="${category}" var="category">
                     <option value="${category.getId()}"><c:out value="${category.getCategory()}"/></option>
                 </c:forEach>
-            </select></td>
-            <td>
-                <button  style="width: 100px; height: 50px;background-color: green" class="btn btn-success">Edit</button>
-            <td>
-                <button style="background-color: #222222"><a href="/products">Back</a></button>
-            </td>
+            </select>
+        </div>
+        <td>
+            <button style="background-color: green" class="btn btn-success">Edit</button>
+        <td>
+            <button style="background-color: #222222"><a href="/products">Back</a></button>
+        </td>
 
-            </td>
-            </tr>
-            </tbody>
-        </table>
+        </tbody>
     </div>
 </form>
 </body>

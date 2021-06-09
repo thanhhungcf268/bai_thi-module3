@@ -10,46 +10,64 @@
 <html>
 <head>
     <title>Title</title>
+    <style>
+        .form-control {
+            background-color: #fff;
+            /*display: block;*/
+            border-radius: 4px;
+            /*box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;*/
+            width: 100%;
+            text-align: center;
+            height: 30px;
+        }
+    </style>
 </head>
 <body>
-<h1><c:if test="${message!= null}">
-    <p style="color: red"><c:out value="${message}"/></p>
-</c:if></h1>
+<h1>
+    <c:if test="${message=='Success!'}">
+        <p style="color: green"><c:out value="${message}"/></p>
+    </c:if>
+    <c:if test="${message=='Error!'}">
+        <p style="color: red"><c:out value="${message}"/></p>
+    </c:if>
+</h1>
 <form method="post">
-    <table>
-        <tr>
-            <td>Name</td>
-            <td><input name="name" type="text"></td>
-        </tr>
-        <tr>
-            <td>price</td>
-            <td><input name="price" type="text"></td>
-        </tr>
-        <tr>
-            <td>Quantity</td>
-            <td><input name="soL" type="text"></td>
-        </tr>
-        <tr>
-            <td>Color</td>
-            <td><input name="color" type="text"></td>
-        </tr>
-        <tr>
-            <td>Description</td>
-            <td><input name="moTa" type="text"></td>
-        </tr>
-        <tr>
-            <td>Category</td>
-            <td><select name="id_category" >
-                <c:forEach items="${category}" var="category">
-                    <option value="${category.getId()}"><c:out value="${category.getCategory()}"/></option>
-                </c:forEach>
-            </select></td>
-        </tr>
-        <tr>
-            <td><button style="background-color: green" type="submit">Create</button></td>
-            <td><button style="background-color: #222222"><a  href="/products">Back</a></button></td>
-        </tr>
-    </table>
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input id="name" class="form-control" name="name" type="text">
+    </div>
+    <div>
+        <label for="price">price</label>
+        <input id="price" class="form-control" name="price" value="0" type="number">
+    </div>
+    <div>
+        <label for="Quantity">Quantity</label>
+        <input id="Quantity" class="form-control" name="soL" type="text">
+    </div>
+    <div>
+        <label for="color">Color</label>
+        <input id="color" class="form-control" name="color" type="text">
+    </div>
+    <div>
+        <label for="Description">Description</label>
+        <td><input id="Description" class="form-control" name="moTa" type="text"></td>
+    </div>
+    <div>
+        <label for="category">Category</label>
+        <td><select id="category" name="id_category" class="form-control">
+            <c:forEach items="${category}" var="category">
+                <option value="${category.getId()}"><c:out value="${category.getCategory()}"/></option>
+            </c:forEach>
+        </select></td>
+    </div>
+    <div>
+        <td>
+            <button style="background-color: green" type="submit">Create</button>
+        </td>
+        <td>
+            <button style="background-color: #222222"><a href="/products">Back</a></button>
+        </td>
+    </div>
 </form>
 </body>
 </html>
