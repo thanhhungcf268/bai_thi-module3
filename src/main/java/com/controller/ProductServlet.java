@@ -25,13 +25,13 @@ public class ProductServlet extends HttpServlet {
 
             switch (action) {
                 case "create":
-                    ShowCreatProduct(request, response);
+                    showCreatProduct(request, response);
                     break;
                 case "edit":
                     updateShow(request, response);
                     break;
                 case "delete":
-                    Delete(request, response);
+                    delete(request, response);
                     break;
                 default:
                     showList(request, response);
@@ -42,13 +42,13 @@ public class ProductServlet extends HttpServlet {
         }
     }
 
-    private void Delete(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+    private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         int id = Integer.parseInt(request.getParameter("id"));
         productDAO.delete(id);
         response.sendRedirect("/products");
     }
 
-    private void ShowCreatProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void showCreatProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Category> list = productDAO.selectALLC();
         request.setAttribute("category", list);
         RequestDispatcher dispatcher = request.getRequestDispatcher("product/addNew.jsp");
@@ -74,7 +74,7 @@ public class ProductServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void createOrder(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+    private void createProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         String name = request.getParameter("name");
         double price = Double.parseDouble(request.getParameter("price"));
         List<Category> list = productDAO.selectALLC();
@@ -111,7 +111,7 @@ public class ProductServlet extends HttpServlet {
 
             switch (action) {
                 case "create":
-                    createOrder(request, response);
+                    createProduct(request, response);
                     break;
                 case "edit":
                     update(request, response);

@@ -60,7 +60,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-
+<div style="height: 20px;width: 100%"></div>
 <div style="float: left">
     <button class="btn btn-outline-danger" type="submit" style="background-color: aqua"><a href="/products?action=create">Add new Product</a></button>
 </div>
